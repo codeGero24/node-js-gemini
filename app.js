@@ -1,12 +1,12 @@
 const express = require("express");
 const connectDB = require("./db/connect");
-require('dotenv').config();
+require("dotenv").config();
 
 const userRoutes = require("./routes/users");
 
 const app = express();
 const URI = process.env.MONGO_URI;
-const PORT = 5001;
+const PORT = process.env.PORT || 3000;
 
 // middleware
 app.use(express.json());

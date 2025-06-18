@@ -14,15 +14,16 @@ app.use(express.json());
 // routes
 app.use("/api/users", userRoutes);
 
-const startEnvironment = async () => {
-  try {
-    await connectDB(URI);
+app.get("/", (req, res) => {
+  res.send("Ciao da Docker Compose! App Node.js connessa a MongoDB.");
+});
+
+const startEnvironment = () => {
+  connectDB(URI).then(() => {
     app.listen(PORT, () => {
       console.log(`Server in ascolto su http://localhost:${PORT}`);
     });
-  } catch (error) {
-    console.error("Errore di connessione al database:", error);
-  }
+  });
 };
 
 startEnvironment();

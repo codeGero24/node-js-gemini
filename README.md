@@ -5,6 +5,7 @@ Questo progetto introduce i primi passi nello sviluppo backend con Node.js, Expr
 ## Descrizione
 
 Il progetto contiene esempi pratici e codice per imparare a:
+
 - Creare un server con Node.js ed Express
 - Gestire le rotte e i controller
 - Collegarsi a un database MongoDB (locale e Atlas)
@@ -34,6 +35,11 @@ npm install
 
 ```sh
 npm start
+```
+
+## Create docker environment - Started
+```bash
+docker compose up
 ```
 
 ## Note

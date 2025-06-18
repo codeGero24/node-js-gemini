@@ -1,0 +1,36 @@
+version: "3.8" # Versione della sintassi di Docker Compose
+
+services:
+  # Servizio per il database MongoDB
+  mongodb:
+    image: mongo:latest # Usa l'immagine ufficiale di MongoDB da Docker Hub
+    container_name: mongodb
+    ports:
+      - "27017:27017" # Porta di default di MongoDB, utile per connettersi da strumenti esterni (es. MongoDB Compass)
+    volumes:
+      # Persiste i dati di MongoDB in un volume denominato
+      - mongodb_data:/data/db
+    #command: mongod --noauth
+
+    # environment:
+    #   - MONGO_INITDB_ROOT_USERNAME=admin # Esempio: credenziali di base (non per produzione)
+    #   - MONGO_INITDB_ROOT_PASSWORD=password # Esempio: credenziali di base
+
+  # Servizio per la tua applicazione Node.js
+  app:
+    build: . # Costruisce l'immagine dalla directory corrente (dove si trova il Dockerfile)
+    ports:
+      - "3000:3000" # Mappa la porta 3000 del container alla porta 8000 del tuo host
+    depends_on:
+      - mongodb # Indica che il servizio 'app' dipende da 'db'
+      # Questo assicura che 'db' venga avviato prima di 'app',
+    environment:
+      # Passa la stringa di connessione al database come variabile d'ambiente al container
+      # Il nome host 'mongodb' corrisponde al nome del servizio 'db' qui sotto
+      - MONGO_URI=mongodb://mongodb:27017/nodejs-gemini
+      - PORT=3000 # Imposta la porta su cui l'applicazione ascolterà
+    # Se vuoi vedere i log direttamente, rimuovi '-d' dal comando 'docker-compose up'
+
+# Definizione dei volumi
+volumes:
+  mongodb_data: # Volume denominato per i dati di MongoDB

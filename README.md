@@ -38,8 +38,17 @@ npm start
 ```
 
 ## Create docker environment - Started
+
 ```bash
 docker compose up
+```
+
+### End-point
+
+```bash
+http://localhost:3000/
+
+http://localhost:3000/api/users
 ```
 
 ## Note
